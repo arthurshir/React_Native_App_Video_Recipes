@@ -4,6 +4,7 @@ import realm from '../realm/datastore.js';
 var VideoService = require('../services/video_service.js');
 var VideoDetailView = require('./video_detail.js');
 import { ListView } from 'realm/react-native';
+var SearchBar = require('react-native-search-bar');
 
 import React, { Component, PropTypes } from 'react';
 import {
@@ -23,8 +24,12 @@ class VideoListView extends Component {
   constructor(props, context) {
     super(props, context);
 
+    this._refreshDatastore();
+  }
+
+  _refreshDatastore() {
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 != r2 })
-    var videos = realm.objects('Video').filtered("host_id == '" + this.props.pageid + "'");
+    var videos = realm.objects('Video').filtered("favorited == true ");
     this.state = {
       dataSource: ds.cloneWithRows(videos)
     };
@@ -46,6 +51,7 @@ class VideoListView extends Component {
       video.favorited = !video.favorited;
     });
   }
+
 
   _onBack() {
     // this.props.navigator.pop();
@@ -74,13 +80,35 @@ class VideoListView extends Component {
     );
   }
 
+  _onChangeText(rowData) {
+
+  }
+
+  _onSearchButtonPress(rowData) {
+
+  }
+
+  _onCancelButtonPress(rowData) {
+
+  }
+
   render() {
+    this._refreshDatastore();
     return (
-      <View style={{flex: 1}}>
-      <ListView
-        dataSource={this.state.dataSource}
-        renderRow={this.renderRow.bind(this)}
-        renderSeparator={this._renderSeparator} />
+      <View style={{flex: 1, backgroundColor: 'powderblue' }}>
+        <SearchBar
+          style={{height: 50}}
+          placeholder='Search'
+          textFieldBackgroundColor='blue'
+          onChangeText={() => this._onChangeText(rowData)}
+          onSearchButtonPress={() => this._onSearchButtonPress(rowData)}
+          onCancelButtonPress={() => this._onCancelButtonPress(rowData)}
+        />
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={this.renderRow.bind(this)}
+          renderSeparator={this._renderSeparator}
+          />
       </View>
     );
   }

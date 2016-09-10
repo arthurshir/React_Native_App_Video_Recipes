@@ -23,8 +23,12 @@ class VideoListView extends Component {
   constructor(props, context) {
     super(props, context);
 
+    this._refreshDatastore();
+  }
+
+  _refreshDatastore() {
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 != r2 })
-    var videos = realm.objects('Video').filtered("host_id == '" + this.props.pageid + "'");
+    var videos = realm.objects('Video').filtered("favorited == true ");
     this.state = {
       dataSource: ds.cloneWithRows(videos)
     };
@@ -46,6 +50,7 @@ class VideoListView extends Component {
       video.favorited = !video.favorited;
     });
   }
+
 
   _onBack() {
     // this.props.navigator.pop();
@@ -75,12 +80,14 @@ class VideoListView extends Component {
   }
 
   render() {
+    this._refreshDatastore();
     return (
-      <View style={{flex: 1}}>
-      <ListView
-        dataSource={this.state.dataSource}
-        renderRow={this.renderRow.bind(this)}
-        renderSeparator={this._renderSeparator} />
+      <View style={{flex: 1, backgroundColor: 'powderblue' }}>
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={this.renderRow.bind(this)}
+          renderSeparator={this._renderSeparator}
+          />
       </View>
     );
   }

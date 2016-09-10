@@ -1,5 +1,5 @@
 // Datastore class for centralizing the Realm Persistent Store
-
+'use strict';
 var Realm = require('realm');
 
 const VideoSchema = {
@@ -12,6 +12,8 @@ const VideoSchema = {
     page_url:     'string',
     recipe_text:  'string',
     description:  'string',
+    host_id:      'string',
+    favorited:    {type: 'bool', default: false},
     host_page:    {type: 'Page'}
   }
 };
@@ -30,7 +32,10 @@ class Page {
   }
 }
 Page.schema = PageSchema;
-let realm = new Realm({schema: [VideoSchema, Page]});
+
+export default new Realm({schema: [VideoSchema, Page]});
+
+
 
 // print_all: function(name) {
 //   var objects = realm.objects(name);
@@ -46,5 +51,3 @@ let realm = new Realm({schema: [VideoSchema, Page]});
 //     return realm.
 //   }
 // }
-
-exports.realm = realm;
