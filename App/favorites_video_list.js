@@ -23,14 +23,17 @@ class VideoListView extends Component {
   constructor(props, context) {
     super(props, context);
 
-    this._refreshDatastore();
-  }
-
-  _refreshDatastore() {
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 != r2 })
     var videos = realm.objects('Video').filtered("favorited == true ");
     this.state = {
       dataSource: ds.cloneWithRows(videos)
+    };
+  }
+
+  _refreshDatastore() {
+    var videos = realm.objects('Video').filtered("favorited == true ");
+    this.state = {
+      dataSource: this.state.dataSource.cloneWithRows(videos)
     };
   }
 
@@ -81,6 +84,7 @@ class VideoListView extends Component {
 
   render() {
     this._refreshDatastore();
+    console.log("refresh");
     return (
       <View style={{flex: 1, backgroundColor: 'powderblue' }}>
         <ListView

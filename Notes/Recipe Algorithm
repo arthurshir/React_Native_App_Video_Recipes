@@ -1,0 +1,52 @@
+-----------------------------
+Todos (Recipe Scraper)
+-----------------------------
+
+So looks like I'll have to do various Algorithms:
+	- Website (Organization Specific) Recipe Scraper
+	- Facebook Comments Recipe Scraper
+	- Facebook Description Recipe Scraper
+
+For Later:
+	- Something I could try doing is always defaulting to PIN it for later... Pinterest link and Pinterest Recipe Scraper
+	- Distinguish between
+
+Look at Examples to see how they do it:
+	- Wikia Recipe Scraper https://github.com/bebraw/recipe-scraper
+	- BBC Recipe Scraper https://github.com/tomdyson/BBC-Recipe-Web-Scraper
+	- Python Recipe Scraper for various websites (Definitely looks like I can base off of this)
+		https://github.com/hhursev/recipe-scraper
+	- BBC Recipe Scraper written in Go. I think I'll use this for the general format / organization of the algorithm because its written by a graduate student and has a lot of stars and Forks (Most stars for Recipe scraper on Github) https://github.com/sleepypikachu/still-good-food
+
+
+-----------------------------
+Notes
+-----------------------------
+
+Scraper V1.0 Structure
+	- Overall Scraper
+	- Detect which scrapers to use for each video.
+	- Different Scraper Modules
+		- Comments Recipe Scraper
+		- Description Recipe Scraper
+		- Website Scraper
+			- Multiple Scrapers for each Website
+
+Recipe Components
+	1. Ingredients
+	2. Directions / Preparation
+
+Notes for specific Pages
+	TabiEats:
+		Recipe Location:
+			-Youtube Link
+			-<p id="eow-description"
+			- Begins at "INGREDIENTS"
+			- Ends after "DIRECTIONS" or "We would like to have as many people enjoy our videos. If you'd like to translate this video, we would be very happy! Just click on this link to do so.", "LIKE, SHARE and COMMENT on our videos please. We greatly appreciate it. Thanks!"
+	Tastemade:
+		Recipe Location
+			- Alternates between Description, Comments, and Website
+
+General Algorithm Structure:
+
+

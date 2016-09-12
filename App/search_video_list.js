@@ -4,7 +4,6 @@ import realm from '../realm/datastore.js';
 var VideoService = require('../services/video_service.js');
 var VideoDetailView = require('./video_detail.js');
 import { ListView } from 'realm/react-native';
-var SearchBar = require('react-native-search-bar');
 
 import React, { Component, PropTypes } from 'react';
 import {
@@ -23,16 +22,23 @@ import {
 class VideoListView extends Component {
   constructor(props, context) {
     super(props, context);
-
-    this._refreshDatastore();
-  }
-
-  _refreshDatastore() {
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 != r2 })
-    var videos = realm.objects('Video').filtered("favorited == true ");
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    var videos = realm.objects('Video');
     this.state = {
       dataSource: ds.cloneWithRows(videos)
     };
+  }
+
+  _refreshDatastore(contains) {
+    var videos = realm.objects('Video');
+    if (contains != "") {
+      videos = videos.filtered("description CONTAINS[c] '" + contains + "'");
+    }
+    console.log("Updating Datastore with filter: " + contains + " resulting in video.length: " + videos.length);
+    this.state = {
+      dataSource: this.state.dataSource.cloneWithRows(videos)
+    };
+    // this.state.dataSource = this.state.dataSource.cloneWithRows(videos);
   }
 
   _onForward(rowData) {
@@ -63,7 +69,6 @@ class VideoListView extends Component {
     var fbid = rowData.fbid;
     var image_url = rowData.image_url;
     var width = Dimensions.get('window').width; //full width
-    console.log(image_url);
     return (
       <TouchableHighlight onPress={() => this._onForward(rowData)} underlayColor="white">
         <View style={{ height: 100, width: width }}>
@@ -80,12 +85,11 @@ class VideoListView extends Component {
     );
   }
 
-  _onChangeText(rowData) {
-
+  _onChangeText(text) {
+    this._refreshDatastore(text);
   }
 
-  _onSearchButtonPress(rowData) {
-
+  _onSearchButtonPress(text) {
   }
 
   _onCancelButtonPress(rowData) {
@@ -93,16 +97,13 @@ class VideoListView extends Component {
   }
 
   render() {
-    this._refreshDatastore();
     return (
       <View style={{flex: 1, backgroundColor: 'powderblue' }}>
-        <SearchBar
-          style={{height: 50}}
-          placeholder='Search'
-          textFieldBackgroundColor='blue'
-          onChangeText={() => this._onChangeText(rowData)}
-          onSearchButtonPress={() => this._onSearchButtonPress(rowData)}
-          onCancelButtonPress={() => this._onCancelButtonPress(rowData)}
+        <View style={{height:62}}/>
+        <TextInput
+          style = {{height: 50}}
+          placeholder="Search"
+          onChangeText={(text) => this._onChangeText(text)}
         />
         <ListView
           dataSource={this.state.dataSource}
