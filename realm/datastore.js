@@ -11,6 +11,7 @@ const VideoSchema = {
     fbid:         'string',
     page_url:     'string',
     recipe_text:  'string',
+    name:         'string',
     description:  'string',
     host_id:      'string',
     favorited:    {type: 'bool', default: false},

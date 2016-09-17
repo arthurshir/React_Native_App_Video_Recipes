@@ -3,13 +3,15 @@
 import realm from '../realm/datastore.js';
 var VideoService = require('../services/video_service.js');
 var VideoDetailView = require('./video_detail.js');
-import { ListView } from 'realm/react-native';
+var methods = require('../methods.js');
+var Background = require('./background.js').sayagata;
+// import { ListView } from 'realm/react-native';
 
 import React, { Component, PropTypes } from 'react';
 import {
   AppRegistry,
   Dimensions,
-  // ListView,
+  ListView,
   StyleSheet,
   TouchableHighlight,
   NavigatorIOS,
@@ -19,42 +21,57 @@ import {
   Image
 } from 'react-native';
 
+var videoArray = [];
+
+var width = Dimensions.get('window').width; //full width
+const styles = StyleSheet.create({
+    floatView: {
+        flex: 1,
+        position: 'absolute',
+        height: 36,
+        width: width / 2 - 14,
+        bottom: 0,
+        backgroundColor: 'rgba(0,0,0,0.55)',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    nameText: {
+      color: 'white',
+      padding: 5,
+      fontSize: 10,
+    }
+});
+
 class VideoListView extends Component {
   constructor(props, context) {
     super(props, context);
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    var videos = realm.objects('Video');
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => true });
+    videoArray = realm.objects('Video');
+    var rowLength = videoArray.length == 0 ? 0 : Math.ceil(videoArray.length/2);
+    console.log(rowLength);
     this.state = {
-      dataSource: ds.cloneWithRows(videos)
+      dataSource: ds.cloneWithRows( Array.apply(null, Array(rowLength)).map(function(x,i) {return i}) )
     };
   }
 
   _refreshDatastore(contains) {
-    var videos = realm.objects('Video');
+    videoArray = realm.objects('Video');
     if (contains != "") {
-      videos = videos.filtered("description CONTAINS[c] '" + contains + "'");
+      videoArray = videoArray.filtered("name CONTAINS[c] '" + contains + "'");
     }
-    console.log("Updating Datastore with filter: " + contains + " resulting in video.length: " + videos.length);
+    console.log("Updating to " + videoArray.length + " videos for filter: " + contains);
+    var rowLength = videoArray.length == 0 ? 0 : Math.ceil(videoArray.length/2);
     this.state = {
-      dataSource: this.state.dataSource.cloneWithRows(videos)
+      dataSource: this.state.dataSource.cloneWithRows( Array.apply(null, Array(rowLength)).map(function(x,i) {return i}) )
     };
-    // this.state.dataSource = this.state.dataSource.cloneWithRows(videos);
+    this.forceUpdate();
   }
 
-  _onForward(rowData) {
+  _onForward(itemData) {
     this.props.navigator.push({
       component: VideoDetailView,
       title: "",
-      rightButtonTitle: 'Save ',
-      onRightButtonPress: () => this._touchRightButton(rowData),
-      passProps: { video: rowData }
-    });
-  }
-
-  _touchRightButton(rowData) {
-    realm.write(() => {
-      var video = realm.objects('Video').filtered("fbid == '" + rowData.fbid + "'")[0];
-      video.favorited = !video.favorited;
+      passProps: { video: itemData }
     });
   }
 
@@ -64,53 +81,81 @@ class VideoListView extends Component {
   }
 
   renderRow(rowData, sectionID, rowID) {
-    var description = rowData.description;
-    var description = description.split('\n')[0];
-    var fbid = rowData.fbid;
-    var image_url = rowData.image_url;
+    // console.log("rowData: " + rowData);
+    var video0 = videoArray[rowData*2];
+    var video1 = videoArray[rowData*2 + 1];
     var width = Dimensions.get('window').width; //full width
-    return (
-      <TouchableHighlight onPress={() => this._onForward(rowData)} underlayColor="white">
-        <View style={{ height: 100, width: width }}>
-          <View style={{ flex:1, flexDirection: 'row' }}>
-            <View style= {{ flex: 2 }}>
-             <Image source={{uri: image_url}} style={{ padding: 10, flex:1 }}/>
-            </View>
-            <View style= {{ flex: 4, justifyContent: 'center' }}>
-             <Text style= {{ padding: 10 }}>{description}</Text>
-            </View>
+
+    // Optional Column 1
+    var column0 = (typeof video0 !== "undefined") ?
+    <TouchableHighlight style={{flex: 1, height: width / 2 - 10 }}  onPress={() => this._onForward(video0)} underlayColor="white">
+      <View style={{ flex:1, flexDirection: 'row' }}>
+        <View style= {{ flex: 1, padding: 5, paddingLeft:10 }}>
+           <View style={{flex: 1, borderRadius:5, overflow: 'hidden' }}>
+             <Image source={{uri: video0.image_url}} style={{ flex:1 }}>
+               <View style={styles.floatView}>
+                 <Text style={styles.nameText} numberOfLines={2}>{video0.name}</Text>
+               </View>
+             </Image>
+           </View>
+        </View>
+      </View>
+    </TouchableHighlight> : <View style={{flex: 1, height: width / 2 - 10}}/>;
+
+    // Optional Column 2
+    var column1 = (typeof video1 !== "undefined") ?
+    <TouchableHighlight style={{flex: 1, height: width / 2 - 10 }}  onPress={() => this._onForward(video1)} underlayColor="white">
+      <View style={{ flex: 1 }}>
+        <View style= {{ flex: 1, padding: 5, paddingRight:10 }}>
+          <View style={{flex: 1, borderRadius:5, overflow: 'hidden' }}>
+             <Image source={{uri: video1.image_url}} style={{ flex:1 }}>
+               <View style={styles.floatView}>
+                 <Text style={styles.nameText} numberOfLines={2}>{video1.name}</Text>
+               </View>
+             </Image>
           </View>
         </View>
-      </TouchableHighlight>
+      </View>
+    </TouchableHighlight> : <View style={{flex: 1, height: width / 2 - 10}}/>;
+
+    return (
+      <View style={{ flex:1, flexDirection: 'row' }}>
+        { column0 }
+        { column1 }
+      </View>
     );
   }
 
-  _onChangeText(text) {
-    this._refreshDatastore(text);
+  _onSubmitEditing() {
+    this._refreshDatastore(this.state.inputtedText);
   }
 
   _onSearchButtonPress(text) {
   }
 
-  _onCancelButtonPress(rowData) {
+  _onCancelButtonPress(itemData) {
 
   }
 
   render() {
     return (
-      <View style={{flex: 1, backgroundColor: 'powderblue' }}>
+      <Background>
         <View style={{height:62}}/>
         <TextInput
-          style = {{height: 50}}
+          style = {{ paddingLeft: 10, paddingRight: 10, height: 48, color: 'black', backgroundColor: '#ECECEC'}}
           placeholder="Search"
-          onChangeText={(text) => this._onChangeText(text)}
+          returnKeyType = "search"
+          onSubmitEditing={() => this._onSubmitEditing()}
+          onChangeText={(text) => { this.setState({inputtedText:text}); }}
         />
         <ListView
+          style={{flex:1}}
           dataSource={this.state.dataSource}
           renderRow={this.renderRow.bind(this)}
-          renderSeparator={this._renderSeparator}
+          renderFooter={() => <View style={{height:10}}/>}
+          renderHeader={() => <View style={{height:10}}/>}
           />
-      </View>
+      </Background>
     );
   }
 

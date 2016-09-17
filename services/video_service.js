@@ -1,10 +1,11 @@
 // Video Service
 
-import realm from '../realm/datastore.js';
-var BASE_URL = 'http://127.0.0.1:8000'
-var pages_url = BASE_URL + '/pages.json'
+import realm from '../realm/datastore.js'
+// var BASE_URL = 'http://127.0.0.1:8000';
+var BASE_URL = 'http://52.53.168.176';
+var pages_url = BASE_URL + '/pages.json';
 // var pages_url = 'www.google.com'
-var videos_url = BASE_URL + '/videos.json'
+var videos_url = BASE_URL + '/videos.json';
 
 module.exports = {
 	fetchPages: function() {
@@ -31,7 +32,7 @@ module.exports = {
         return responseJson;
       })
       .catch((error) => {
-        console.error(error);
+        console.error(pages_url, error);
       });
 
 		// fetch(pages_url).done();
@@ -66,7 +67,8 @@ module.exports = {
 					  	page_url: 		video.page_url,
 					  	recipe_text: 	video.recipe_text,
 					  	description: 	video.description,
-					  	host_id: 		video.host_id
+					  	host_id: 			video.host_id,
+							name:					video.name
 					  	// host_page: 		realm.objects('Page').filtered('fbid = \"' + video.host_id + '\"'),
 					  }, true);
 					});
@@ -76,7 +78,7 @@ module.exports = {
         return responseJson;
       })
       .catch((error) => {
-        console.error(error);
+        console.error(videos_url, error);
       });
 	}
 }; // Module Exports

@@ -1,17 +1,20 @@
 'use strict';
 import realm from '../realm/datastore.js';
 var VideoService = require('../services/video_service.js');
+import ParsedText from 'react-native-parsed-text';
+var Background = require('./background.js').sayagata;
 
 import React, { Component, PropTypes } from 'react';
 import {
-  ScrollView,
   AppRegistry,
   Dimensions,
   WebView,
   ListView,
   StyleSheet,
+  Linking,
   TouchableHighlight,
   NavigatorIOS,
+  ScrollView,
   Text,
   TextInput,
   View,
@@ -27,45 +30,67 @@ class VideoDetailView extends Component {
     };
   }
 
+  _touchSaveButton(rowData) {
+    realm.write(() => {
+      this.props.video.favorited = !this.props.video.favorited;
+    });
+    this.forceUpdate();
+  }
+
+  _handleUrlPress(url) {
+    Linking.openURL(url).catch(err => console.error('An error occurred', err));
+ }
+
   render() {
     this.props.navigator.rightButtonTitle = 'Save',
-    console.log(this.props.video.description.split('\n')[0]);
+    console.log(this.props.video.description);
     var width = Dimensions.get('window').width; //full width
-    var _scrollView: ScrollView;
+    var height = Dimensions.get('window').height; //full width
+    var savedBackgroundColor = this.props.video.favorited ? '#FF5E72' : '#C0C0C0';
+    var savedText = this.props.video.favorited ? 'Saved ❤️' : 'Save 🍴'
+    var hostPage = realm.objects('Page').filtered("fbid == '" + this.props.video.host_id + "'")[0];
+
     return (
-      <View style={{flex: 1}}>
-        <View style={{height:62}}/>
-        <ScrollView
-            ref={(scrollView) => { _scrollView = scrollView; }}
-            automaticallyAdjustContentInsets={false}
-            onScroll={() => { console.log('onScroll!'); }}
-            scrollEventThrottle={200}
-            style={{
-              backgroundColor: '#6A85B1',
-              height: 300,
-            }}
-        >
-          <View style={{ paddingTop: 20, paddingBottom: 20, paddingLeft:10, paddingRight:10, backgroundColor: 'powderblue', alignItems: 'center', justifyContent: 'center'}}>
-            <Text style={{ textAlign:'center', fontSize:20 }}>{this.props.video.description.split('\n')[0]}</Text>
-          </View>
-          <View style={{ }}>
-            <View style={{ height: 300 }}>
-              <WebView
-                style={{flex:1, backgroundColor: 'black' }}
-                javaScriptEnabled={true}
-                source={{uri: 'https://www.facebook.com/video/embed?video_id=' + this.props.video.fbid}}
-              />
+      <Background style={{ flex: 1 }}>
+        <ScrollView>
+          <View style={{
+            justifyContent: 'center',
+          }}>
+            <View style={{height: 80, alignItems: 'center', justifyContent: 'center'}}>
+              <TouchableHighlight style={{paddingLeft:10, paddingRight:10, paddingTop:8, paddingBottom:8}} onPress={() => { Linking.openURL('https://www.facebook.com/' + hostPage.fbid).catch(err => console.error('An error occurred', err)); }} underlayColor="white">
+                  <Text style={{fontSize:17, fontWeight:'bold', textDecorationLine:'underline'}}>{hostPage.name}</Text>
+              </TouchableHighlight>
             </View>
-            <View style={{ backgroundColor: 'powderblue' }}>
-              <Text style={{ paddingTop: 10, paddingBottom: 0, textAlign:'center', fontSize:20 }}>Recipe</Text>
-              <Text style={{ padding: 10}}>
-              </Text>
-            </View>
+
+            <WebView
+              style={{height: width, backgroundColor: 'black' }}
+              javaScriptEnabled={true}
+              source={{uri: 'https://www.facebook.com/video/embed?video_id=' + this.props.video.fbid}}
+            />
+            <ParsedText
+              style={{ padding: 20, textAlign:'center', fontSize:14}}
+              parse={
+                [
+                  {type: 'url', style: {color: 'blue', textDecorationLine: 'underline' }, onPress: this._handleUrlPress},
+                ]
+              }
+            >
+              {this.props.video.description}
+            </ParsedText>
+
+            <TouchableHighlight onPress={() => { this._touchSaveButton() }} underlayColor="white">
+              <View style={{height: 60, backgroundColor: savedBackgroundColor, alignItems: 'center', justifyContent: 'center'}}>
+                <Text style={{color:'white', fontSize:16}}>{savedText}</Text>
+              </View>
+            </TouchableHighlight>
+            <TouchableHighlight onPress={() => { Linking.openURL(this.props.video.page_url).catch(err => console.error('An error occurred', err)); }} underlayColor="white">
+              <View style={{height: 60, backgroundColor: '#3b5998', alignItems: 'center', justifyContent: 'center'}}>
+                <Text style={{color:'white', fontSize:16}}>View on Facebook</Text>
+              </View>
+            </TouchableHighlight>
           </View>
-          <View style={{height:49}}/>
         </ScrollView>
-        <View style={{height:49}}/>
-      </View>
+      </Background>
     );
   }
 }

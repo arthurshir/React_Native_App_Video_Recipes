@@ -3,6 +3,9 @@
 import realm from '../realm/datastore.js';
 var VideoService = require('../services/video_service.js');
 var VideoListView = require('./video_list.js');
+var Mailer = require('NativeModules').RNMail;
+var adminEmail = 'Arthur.shir@gmail.com';
+var Background = require('./background.js').sayagata;
 
 import React, { Component, PropTypes } from 'react';
 import {
@@ -63,13 +66,38 @@ class PageListView extends Component {
     );
   }
 
+  handlePageRequest() {
+    Mailer.mail({
+      subject: 'Facebook Page Request',
+      recipients: [adminEmail],
+      body: 'Dear Arthur,\n\n Could you please add this Facebook page to the VideoRecipes app?',
+      isHTML: true, // iOS only, exclude if false
+    }, (error, event) => {
+        if(error) {
+          AlertIOS.alert('Error', 'Could not send mail. Please send a mail to ' + adminEmail);
+        }
+    });
+  }
+
+  renderFooter() {
+    return (
+      <TouchableHighlight onPress={this.handlePageRequest} underlayColor="white">
+        <View style={{height: 60, backgroundColor: 'black', alignItems: 'center', justifyContent: 'center'}}>
+          <Text style={{color:'white'}}>Want another Facebook Page? Request it!</Text>
+        </View>
+      </TouchableHighlight>
+    )
+  }
+
   render() {
     return (
-      <View style={{flex: 1}}>
+      <Background style={{flex:1}}>
       <ListView
         dataSource={this.state.dataSource}
-        renderRow={this.renderRow.bind(this)} />
-      </View>
+        renderRow={this.renderRow.bind(this)}
+        renderFooter={this.renderFooter.bind(this)}
+      />
+      </Background>
     );
   }
 }

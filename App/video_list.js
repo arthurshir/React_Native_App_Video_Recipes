@@ -3,6 +3,7 @@
 import realm from '../realm/datastore.js';
 var VideoService = require('../services/video_service.js');
 var VideoDetailView = require('./video_detail.js');
+var Background = require('./background.js').sayagata;
 import { ListView } from 'realm/react-native';
 
 import React, { Component, PropTypes } from 'react';
@@ -34,16 +35,7 @@ class VideoListView extends Component {
     this.props.navigator.push({
       component: VideoDetailView,
       title: "",
-      rightButtonTitle: 'Save ',
-      onRightButtonPress: () => this._touchRightButton(rowData),
       passProps: { video: rowData }
-    });
-  }
-
-  _touchRightButton(rowData) {
-    realm.write(() => {
-      var video = realm.objects('Video').filtered("fbid == '" + rowData.fbid + "'")[0];
-      video.favorited = !video.favorited;
     });
   }
 
@@ -57,16 +49,17 @@ class VideoListView extends Component {
     var fbid = rowData.fbid;
     var image_url = rowData.image_url;
     var width = Dimensions.get('window').width; //full width
-    console.log(image_url);
     return (
       <TouchableHighlight onPress={() => this._onForward(rowData)} underlayColor="white">
-        <View style={{ height: 100, width: width }}>
+        <View style={{ height: 110, width: width }}>
           <View style={{ flex:1, flexDirection: 'row' }}>
-            <View style= {{ flex: 2 }}>
-             <Image source={{uri: image_url}} style={{ padding: 10, flex:1 }}/>
+            <View style= {{ flex: 3, padding:5, paddingLeft:10 }}>
+              <View style={{flex: 1, borderRadius:5, overflow: 'hidden' }}>
+                <Image source={{uri: image_url}} style={{ flex:1}}/>
+              </View>
             </View>
             <View style= {{ flex: 4, justifyContent: 'center' }}>
-             <Text style= {{ padding: 10 }}>{description}</Text>
+              <Text style= {{ padding: 10 }} numberOfLines={3}>{description}</Text>
             </View>
           </View>
         </View>
@@ -76,12 +69,14 @@ class VideoListView extends Component {
 
   render() {
     return (
-      <View style={{flex: 1}}>
+      <Background>
       <ListView
         dataSource={this.state.dataSource}
         renderRow={this.renderRow.bind(this)}
-        renderSeparator={this._renderSeparator} />
-      </View>
+        renderFooter={() => <View style={{height:10}}/>}
+        renderHeader={() => <View style={{height:10}}/>}
+        />
+      </Background>
     );
   }
 

@@ -22,6 +22,18 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		188152E81D8CB442009EC383 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 188152DD1D8CB442009EC383 /* LICENSE.txt */; };
+		188152E91D8CB442009EC383 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 188152DE1D8CB442009EC383 /* OpenSans-Bold.ttf */; };
+		188152EA1D8CB442009EC383 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 188152DF1D8CB442009EC383 /* OpenSans-BoldItalic.ttf */; };
+		188152EB1D8CB442009EC383 /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 188152E01D8CB442009EC383 /* OpenSans-ExtraBold.ttf */; };
+		188152EC1D8CB442009EC383 /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 188152E11D8CB442009EC383 /* OpenSans-ExtraBoldItalic.ttf */; };
+		188152ED1D8CB442009EC383 /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 188152E21D8CB442009EC383 /* OpenSans-Italic.ttf */; };
+		188152EE1D8CB442009EC383 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 188152E31D8CB442009EC383 /* OpenSans-Light.ttf */; };
+		188152EF1D8CB442009EC383 /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 188152E41D8CB442009EC383 /* OpenSans-LightItalic.ttf */; };
+		188152F01D8CB442009EC383 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 188152E51D8CB442009EC383 /* OpenSans-Regular.ttf */; };
+		188152F11D8CB442009EC383 /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 188152E61D8CB442009EC383 /* OpenSans-Semibold.ttf */; };
+		188152F21D8CB442009EC383 /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 188152E71D8CB442009EC383 /* OpenSans-SemiboldItalic.ttf */; };
+		18A6BCDD1D87A4D500B39C6C /* libRNMail.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A6BCDA1D87A4C900B39C6C /* libRNMail.a */; };
 		4A7441E9A23C4E0B9D93698F /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 241CCA0C90E44DCFA49D72D1 /* libc++.tbd */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		936869CC1E154780967D69B6 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1792962148654554BCE192CA /* libz.tbd */; };
@@ -99,6 +111,20 @@
 			remoteGlobalIDString = F60690131CA2766F0003FB26;
 			remoteInfo = RealmReact;
 		};
+		18A6BCD91D87A4C900B39C6C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 18A6BCD41D87A4C900B39C6C /* RNMail.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 46FEDE7F1AFF192F00D3261C;
+			remoteInfo = RNMail;
+		};
+		18A6BCDB1D87A4C900B39C6C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 18A6BCD41D87A4C900B39C6C /* RNMail.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 46FEDE8A1AFF192F00D3261C;
+			remoteInfo = RNMailTests;
+		};
 		78C398B81ACF4ADC00677621 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */;
@@ -136,6 +162,18 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = VideoRecipes/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		1792962148654554BCE192CA /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		188152DD1D8CB442009EC383 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		188152DE1D8CB442009EC383 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		188152DF1D8CB442009EC383 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
+		188152E01D8CB442009EC383 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
+		188152E11D8CB442009EC383 /* OpenSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		188152E21D8CB442009EC383 /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Italic.ttf"; sourceTree = "<group>"; };
+		188152E31D8CB442009EC383 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
+		188152E41D8CB442009EC383 /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
+		188152E51D8CB442009EC383 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		188152E61D8CB442009EC383 /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
+		188152E71D8CB442009EC383 /* OpenSans-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiboldItalic.ttf"; sourceTree = "<group>"; };
+		18A6BCD41D87A4C900B39C6C /* RNMail.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNMail.xcodeproj; path = "../node_modules/react-native-mail/RNMail.xcodeproj"; sourceTree = "<group>"; };
 		241CCA0C90E44DCFA49D72D1 /* libc++.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
@@ -156,6 +194,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18A6BCDD1D87A4D500B39C6C /* libRNMail.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
@@ -278,6 +317,33 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		188152CF1D8CB41C009EC383 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				188152DD1D8CB442009EC383 /* LICENSE.txt */,
+				188152DE1D8CB442009EC383 /* OpenSans-Bold.ttf */,
+				188152DF1D8CB442009EC383 /* OpenSans-BoldItalic.ttf */,
+				188152E01D8CB442009EC383 /* OpenSans-ExtraBold.ttf */,
+				188152E11D8CB442009EC383 /* OpenSans-ExtraBoldItalic.ttf */,
+				188152E21D8CB442009EC383 /* OpenSans-Italic.ttf */,
+				188152E31D8CB442009EC383 /* OpenSans-Light.ttf */,
+				188152E41D8CB442009EC383 /* OpenSans-LightItalic.ttf */,
+				188152E51D8CB442009EC383 /* OpenSans-Regular.ttf */,
+				188152E61D8CB442009EC383 /* OpenSans-Semibold.ttf */,
+				188152E71D8CB442009EC383 /* OpenSans-SemiboldItalic.ttf */,
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
+		18A6BCD51D87A4C900B39C6C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				18A6BCDA1D87A4C900B39C6C /* libRNMail.a */,
+				18A6BCDC1D87A4C900B39C6C /* RNMailTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		78C398B11ACF4ADC00677621 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -289,6 +355,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				18A6BCD41D87A4C900B39C6C /* RNMail.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
 				00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */,
@@ -315,6 +382,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				188152CF1D8CB41C009EC383 /* Fonts */,
 				13B07FAE1A68108700A75B9A /* VideoRecipes */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* VideoRecipesTests */,
@@ -453,6 +521,10 @@
 					ProductGroup = 180A62671D7FDD4E00CD8E67 /* Products */;
 					ProjectRef = E519D3860676483797DBEF80 /* RealmReact.xcodeproj */;
 				},
+				{
+					ProductGroup = 18A6BCD51D87A4C900B39C6C /* Products */;
+					ProjectRef = 18A6BCD41D87A4C900B39C6C /* RNMail.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -526,6 +598,20 @@
 			remoteRef = 180A62741D7FDD4E00CD8E67 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		18A6BCDA1D87A4C900B39C6C /* libRNMail.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNMail.a;
+			remoteRef = 18A6BCD91D87A4C900B39C6C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		18A6BCDC1D87A4C900B39C6C /* RNMailTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RNMailTests.xctest;
+			remoteRef = 18A6BCDB1D87A4C900B39C6C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		78C398B91ACF4ADC00677621 /* libRCTLinking.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -554,8 +640,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				188152F11D8CB442009EC383 /* OpenSans-Semibold.ttf in Resources */,
+				188152F21D8CB442009EC383 /* OpenSans-SemiboldItalic.ttf in Resources */,
+				188152E81D8CB442009EC383 /* LICENSE.txt in Resources */,
+				188152F01D8CB442009EC383 /* OpenSans-Regular.ttf in Resources */,
+				188152ED1D8CB442009EC383 /* OpenSans-Italic.ttf in Resources */,
+				188152EC1D8CB442009EC383 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				188152EF1D8CB442009EC383 /* OpenSans-LightItalic.ttf in Resources */,
+				188152E91D8CB442009EC383 /* OpenSans-Bold.ttf in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				188152EE1D8CB442009EC383 /* OpenSans-Light.ttf in Resources */,
+				188152EA1D8CB442009EC383 /* OpenSans-BoldItalic.ttf in Resources */,
+				188152EB1D8CB442009EC383 /* OpenSans-ExtraBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
