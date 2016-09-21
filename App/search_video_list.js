@@ -127,6 +127,7 @@ class VideoListView extends Component {
   }
 
   _onSubmitEditing() {
+    console.log(this.state.inputtedText);
     this._refreshDatastore(this.state.inputtedText);
   }
 
@@ -142,7 +143,8 @@ class VideoListView extends Component {
       <Background>
         <View style={{height:62}}/>
         <TextInput
-          style = {{ paddingLeft: 10, paddingRight: 10, height: 48, color: 'black', backgroundColor: '#ECECEC'}}
+          style = {{ paddingLeft: 10, paddingRight: 10, height: 48, color: 'black', backgroundColor: 'rgba(236,236,236,0.65)'}}
+          placeholderTextColor='#525252'
           placeholder="Search"
           returnKeyType = "search"
           onSubmitEditing={() => this._onSubmitEditing()}

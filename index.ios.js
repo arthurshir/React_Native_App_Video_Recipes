@@ -15,6 +15,7 @@ var Background = require('./App/background.js').sayagata;
 
 import React, { Component } from 'react';
 import {
+  AsyncStorage,
   AppRegistry,
   TabBarIOS,
   StatusBar,
@@ -29,8 +30,40 @@ import {
   Image
 } from 'react-native';
 
-// VideoService.fetchPages();
-// VideoService.fetchVideos();
+var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+function setUpdate() {
+  try {
+    AsyncStorage.setItem('@MySuperStore:lastUpdate', new Date());
+  } catch (error) {
+    console.log(error);
+  }
+}
+function daysSinceUpdate() {
+  try {
+    const value = AsyncStorage.getItem('@MySuperStore:lastUpdate');
+    console.log("lastUpdate", value);
+    if (value !== null){
+      var diffDays = Math.round(Math.abs((Date() - value.getTime())/(oneDay)));
+      return diffDays;
+    } else {
+      return 7
+    }
+  } catch (error) {
+    console.log(error);
+    return 7;
+  }
+}
+function shouldUpdate() {
+  return daysSinceUpdate() > 6;
+}
+
+console.log("Last update: " + Number(daysSinceUpdate()) + " days ago.");
+if (shouldUpdate()) {
+  VideoService.fetchPages();
+  VideoService.fetchVideos();
+  setUpdate();
+  console.log('Updated today!');
+}
 
 // https://stackoverflow.com/questions/38107439/how-can-i-repeat-a-pattern-image-to-create-a-background-in-react-native
 
@@ -111,12 +144,13 @@ class VideoRecipes extends Component {
               onPress={() => {
                 this.setState({
                   selectedTab: 'saved',
+                  dummyRefresh: true,
                 });
-                this.forceUpdate();
               }}>
               <NavigatorIOS
                 ref='favorites_nav'
                 initialRoute = {{
+
                   title: 'Favorites',
                   component: FavoritesListView,
                   rightButtonTitle: 'Info ',

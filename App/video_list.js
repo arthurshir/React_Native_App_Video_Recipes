@@ -25,7 +25,7 @@ class VideoListView extends Component {
     super(props, context);
 
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 != r2 })
-    var videos = realm.objects('Video').filtered("host_id == '" + this.props.pageid + "'");
+    var videos = realm.objects('Video').filtered("host_id == '" + this.props.pageid + "'").sorted('created', ['reverse', false]);
     this.state = {
       dataSource: ds.cloneWithRows(videos)
     };
